@@ -21,6 +21,12 @@
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 
+// Include all GLM core / GLSL features
+#include <glm/glm.hpp> // vec2, vec3, mat4, radians
+
+// Include all GLM extensions
+#include <glm/ext.hpp> // perspective, translate, rotate
+
 #define LIGHTS_ENABLED true
 
 enum VIEW_STATE
