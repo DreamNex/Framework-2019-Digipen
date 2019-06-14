@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{72530eca-f2c4-4f59-b436-ca3975d59e79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gl3w">
+      <UniqueIdentifier>{f766eb62-a620-42c7-84e4-a4d5b3ec2ce1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{0882cc67-f481-47a5-b6ea-7e0788c1ae92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Application">
+      <UniqueIdentifier>{d44097e7-3efe-4f37-8e25-7682dd26932e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\InputHandler">
+      <UniqueIdentifier>{962de89e-1358-4b2b-a476-dc5258cdd830}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application">
+      <UniqueIdentifier>{b628313a-aeae-4c52-b75b-c6638d1ec6e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\InputHandler">
+      <UniqueIdentifier>{3b500cfe-7b53-48a5-abfd-a0bcba5e892e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\State Handling">
+      <UniqueIdentifier>{8f865485-db73-43b5-9431-faec308f06c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\State Handling">
+      <UniqueIdentifier>{7a3f81c2-7055-4bed-9d2a-526703d25f07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\State Handling\States">
+      <UniqueIdentifier>{93c37003-9260-441b-a31b-e5ad2c0891b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\State Handling\States">
+      <UniqueIdentifier>{1ee91cb2-de62-4b52-ae72-184f3ba6f803}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glfw">
+      <UniqueIdentifier>{54ad61c0-cf24-41b8-9c58-8a0ea56592f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\MVC">
+      <UniqueIdentifier>{7674638f-1ceb-4e48-a1fe-6548adcc94a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\imgui">
+      <UniqueIdentifier>{b7fe869f-ce6e-4df1-a8bb-e5273c517b7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Application\imgui">
+      <UniqueIdentifier>{f9504724-a09a-4c75-81cd-9572f7efd8e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Application\MVC">
+      <UniqueIdentifier>{c5024239-a266-4287-b082-c765b294bbbd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\libs\gl3w\GL\gl3w.c">
+      <Filter>gl3w</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StateSplash.cpp">
+      <Filter>Source Files\State Handling\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StateHandler.cpp">
+      <Filter>Source Files\State Handling</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\imgui\imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\imgui\imgui_demo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\imgui\imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\imgui\imgui_widgets.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\imgui\imgui_impl_glfw.cpp">
+      <Filter>Source Files\Application\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\imgui\imgui_impl_opengl3.cpp">
+      <Filter>Source Files\Application\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\View.cpp">
+      <Filter>Source Files\Application\MVC</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Controller.cpp">
+      <Filter>Source Files\Application\MVC</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Model.cpp">
+      <Filter>Source Files\Application\MVC</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InputHandler.cpp">
+      <Filter>Source Files\InputHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StateTest.cpp">
+      <Filter>Source Files\State Handling\States</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\libs\gl3w\GL\gl3w.h">
+      <Filter>gl3w</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\gl3w\GL\glcorearb.h">
+      <Filter>gl3w</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StateHandler.h">
+      <Filter>Headers\State Handling</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StateSplash.h">
+      <Filter>Headers\State Handling\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\State.h">
+      <Filter>Headers\State Handling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\glfw\include\glfw3.h">
+      <Filter>glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\libs\glfw\include\glfw3native.h">
+      <Filter>glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\imgui\imconfig.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\imgui\imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\imgui\imgui_internal.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\imgui\imstb_rectpack.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\imgui\imstb_textedit.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\imgui\imstb_truetype.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\imgui\imgui_impl_glfw.h">
+      <Filter>Headers\Application\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\imgui\imgui_impl_opengl3.h">
+      <Filter>Headers\Application\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\View.h">
+      <Filter>Headers\Application\MVC</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Controller.h">
+      <Filter>Headers\Application\MVC</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Model.h">
+      <Filter>Headers\Application\MVC</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\InputHandler.h">
+      <Filter>Headers\InputHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StateTest.h">
+      <Filter>Headers\State Handling\States</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
