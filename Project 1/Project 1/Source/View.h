@@ -101,6 +101,9 @@ public:
 
 	virtual void Update(double dt);
 
+	// CallBacks
+	static void Focus_Callback(GLFWwindow * window, int focused);
+
 	// Rendering Functions
 	void RenderImGui();
 	void RenderDebugInformation();

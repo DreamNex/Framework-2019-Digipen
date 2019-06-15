@@ -103,6 +103,7 @@ BOOL View::CreateGLWindow(const char * title, int width, int height, int bits)
 	// Sets the Callbacks
 	glfwSetKeyCallback(m_window, InputHandler_Key_CallBack);
 	glfwSetMouseButtonCallback(m_window, InputHandler_Mouse_CallBack);
+	glfwSetWindowFocusCallback(m_window, View::Focus_Callback);
 	//glfwSetCharCallback(m_window, InputHandler_Char_CallBack);
 	//glfwSetScrollCallback(m_window, InputHandler_Scroll_CallBack);
 
@@ -123,8 +124,8 @@ BOOL View::CreateGLWindow(const char * title, int width, int height, int bits)
 	glfwSetCursorPos(this->getWindow(), this->getWindowWidth() / 2, this->getWindowHeight() / 2);
 
 	m_cCamera = new Camera(this);
-	m_mAxes = MeshBuilder::GenerateAxis("Axis");
-	//m_mAxes = MeshBuilder::GenerateCube("Cube", Mesh::Color(1.f,0.f,0.f), 10.f);
+	//m_mAxes = MeshBuilder::GenerateAxis("Axis");
+	m_mAxes = MeshBuilder::GenerateCube("Cube", Mesh::Color(0.1f,0.2f,0.3f), 10.f);
 
 	return TRUE;
 }
@@ -159,6 +160,20 @@ void View::Update(double dt)
 	this->m_cCamera->Update(dt);
 
 	this->OnResizeWindow();
+}
+
+void View::Focus_Callback(GLFWwindow* window, int focused)
+{
+	if (focused)
+	{
+		InputHandler::setMouseEnabled(true);
+		InputHandler::setKeyboardEnabled(true);
+	}
+	else
+	{
+		InputHandler::setMouseEnabled(false);
+		InputHandler::setKeyboardEnabled(false);
+	}
 }
 
 BOOL View::InitGL()
@@ -257,10 +272,9 @@ void View::RenderImGui()
 void View::RenderDebugInformation()
 {
 	// Using ImGui
-	if (ImGui::Begin("Debug Information", 0, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBackground))
+	if (ImGui::Begin("Debug Information", 0, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMouseInputs | ImGuiWindowFlags_NoBackground))
 	{
 		ImGui::SetWindowPos(ImVec2(-5, -5), true);
-		ImGui::SetWindowSize(ImVec2(1000, 500));
 		ImGui::Text("Current State : %s", theModel->GetStateHandler()->GetCurrentRunningState()->toString().c_str());
 		ImGui::Text("Camera Pos %f, %f, %f", this->m_cCamera->m_v3CameraPos.x, this->m_cCamera->m_v3CameraPos.y, this->m_cCamera->m_v3CameraPos.z);
 		ImGui::Text("Camera Dir %f, %f, %f", this->m_cCamera->m_v3CameraDirection.x, this->m_cCamera->m_v3CameraDirection.y, this->m_cCamera->m_v3CameraDirection.z);
@@ -279,7 +293,7 @@ void View::RenderDebugInformation()
 void View::RenderFPS()
 {
 	// Using ImGui
-	if (ImGui::Begin("FPS", 0, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBackground))
+	if (ImGui::Begin("FPS", 0, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoMouseInputs | ImGuiWindowFlags_NoBackground))
 	{
 		ImGui::SetWindowPos(ImVec2(-5, this->getWindowHeight() - (ImGui::GetWindowHeight() * 0.75f)), true); // Bottom Left
 		ImGui::Text("FPS : %f", ImGui::GetIO().Framerate);
