@@ -1,19 +1,25 @@
 #ifndef MODEL_H
 #define MODEL_H
 
+#include "StateHandler.h"
+#include "MeshBuilder.h"
+
 #include <iostream>
+#include <string>
 
 class Model
 {
 public:
-	Model(void);
+	Model();
 	virtual ~Model(void);
 
 	Model * getInstance() { return this; }
 
-	void Init();
+	void Init(StateHandler * stateHandler);
 	void Update(double dt);
+	StateHandler * GetStateHandler();
 private:
+	StateHandler* m_cStateHandler;
 };
 
 #endif

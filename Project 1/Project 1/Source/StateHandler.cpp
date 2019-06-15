@@ -95,3 +95,8 @@ void StateHandler::Update(double m_dElaspedTime)
 {
 	m_stateList.back()->Update(this, m_dElaspedTime);
 }
+
+State * StateHandler::GetCurrentRunningState()
+{
+	return m_stateList.back();
+}

@@ -53,6 +53,24 @@
     <Filter Include="Headers\Application\MVC">
       <UniqueIdentifier>{c5024239-a266-4287-b082-c765b294bbbd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Application\Camera">
+      <UniqueIdentifier>{00f491e6-6ab3-489d-b133-dc44f019f172}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\Camera">
+      <UniqueIdentifier>{68542468-6e8f-41de-b189-29c89cad7b4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers\Application\MeshRenderer">
+      <UniqueIdentifier>{c3fb679c-1f64-41ad-86cd-2c82dced1529}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\MeshRenderer">
+      <UniqueIdentifier>{6bf7664f-d31d-43cb-9c74-9c5008acc52d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{ded74e9d-33fe-4795-8d14-75e60bd33563}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Maths">
+      <UniqueIdentifier>{028fcc56-4b77-4b41-884e-885555ce19f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\libs\gl3w\GL\gl3w.c">
@@ -99,6 +117,24 @@
     </ClCompile>
     <ClCompile Include="Source\StateTest.cpp">
       <Filter>Source Files\State Handling\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Source Files\Application\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mesh.cpp">
+      <Filter>Source Files\Application\MeshRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MeshBuilder.cpp">
+      <Filter>Source Files\Application\MeshRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Math\MatrixStack.cpp">
+      <Filter>Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Math\Mtx44.cpp">
+      <Filter>Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Math\Vector3.cpp">
+      <Filter>Maths</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,5 +198,34 @@
     <ClInclude Include="Source\StateTest.h">
       <Filter>Headers\State Handling\States</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Camera.h">
+      <Filter>Headers\Application\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Mesh.h">
+      <Filter>Headers\Application\MeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\MeshBuilder.h">
+      <Filter>Headers\Application\MeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\MatrixStack.h">
+      <Filter>Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\Mtx44.h">
+      <Filter>Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\MyMath.h">
+      <Filter>Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\Vector3.h">
+      <Filter>Maths</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\Test.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\Test.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

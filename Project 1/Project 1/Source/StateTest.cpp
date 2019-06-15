@@ -13,6 +13,8 @@ State * StateTest::getInstance()
 
 void StateTest::Init()
 {
+	//theView->LoadOrthoCamera();
+	theView->LoadPerspectiveCamera(45.0f);
 }
 
 void StateTest::Update(StateHandler * stateHandler, double dt)
@@ -50,6 +52,7 @@ void StateTest::Resume()
 
 void StateTest::Draw(StateHandler * stateHandler)
 {
+	theView->RenderAxis();
 }
 
 void StateTest::RenderBackground()

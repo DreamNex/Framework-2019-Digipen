@@ -20,6 +20,8 @@ public:
 	virtual void Cleanup();
 	virtual void Draw();
 	virtual void Update(double m_dElaspedTime);
+
+	State * GetCurrentRunningState();
 private:
 	std::vector<State*> m_stateList;
 	std::vector<State*> m_deleteList;

@@ -121,6 +121,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\libs\gl3w\GL\gl3w.c" />
+    <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Controller.cpp" />
     <ClCompile Include="Source\imgui\imgui.cpp" />
     <ClCompile Include="Source\imgui\imgui_demo.cpp" />
@@ -130,6 +131,11 @@
     <ClCompile Include="Source\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Source\InputHandler.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Math\MatrixStack.cpp" />
+    <ClCompile Include="Source\Math\Mtx44.cpp" />
+    <ClCompile Include="Source\Math\Vector3.cpp" />
+    <ClCompile Include="Source\Mesh.cpp" />
+    <ClCompile Include="Source\MeshBuilder.cpp" />
     <ClCompile Include="Source\Model.cpp" />
     <ClCompile Include="Source\StateHandler.cpp" />
     <ClCompile Include="Source\StateSplash.cpp" />
@@ -141,6 +147,7 @@
     <ClInclude Include="..\libs\gl3w\GL\glcorearb.h" />
     <ClInclude Include="..\libs\glfw\include\glfw3.h" />
     <ClInclude Include="..\libs\glfw\include\glfw3native.h" />
+    <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Controller.h" />
     <ClInclude Include="Source\imgui\imconfig.h" />
     <ClInclude Include="Source\imgui\imgui.h" />
@@ -151,12 +158,22 @@
     <ClInclude Include="Source\imgui\imstb_textedit.h" />
     <ClInclude Include="Source\imgui\imstb_truetype.h" />
     <ClInclude Include="Source\InputHandler.h" />
+    <ClInclude Include="Source\Math\MatrixStack.h" />
+    <ClInclude Include="Source\Math\Mtx44.h" />
+    <ClInclude Include="Source\Math\MyMath.h" />
+    <ClInclude Include="Source\Math\Vector3.h" />
+    <ClInclude Include="Source\Mesh.h" />
+    <ClInclude Include="Source\MeshBuilder.h" />
     <ClInclude Include="Source\Model.h" />
     <ClInclude Include="Source\State.h" />
     <ClInclude Include="Source\StateHandler.h" />
     <ClInclude Include="Source\StateSplash.h" />
     <ClInclude Include="Source\StateTest.h" />
     <ClInclude Include="Source\View.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\Test.fragmentshader" />
+    <None Include="Shaders\Test.vertexshader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

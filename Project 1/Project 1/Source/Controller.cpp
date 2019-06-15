@@ -1,6 +1,7 @@
 #include "Controller.h"
 
 #include "StateSplash.h"
+#include "StateTest.h"
 
 Controller::Controller(Model * theModel, View * theView)
 : theModel(theModel)
@@ -33,6 +34,7 @@ void Controller::RunGameLoop()
 	if (theView->CreateGLWindow("Project 1", 1280, 720, 32))
 	{
 		std::cout << "OpenGL Window Created" << std::endl;
+		theModel->Init(m_cStateHandler);
 	}
 	else
 	{
@@ -45,8 +47,8 @@ void Controller::RunGameLoop()
 	bool show_test_window = true;
 	bool show_another_window = true;
 
-	// Setting the first state to render to be the Splash Screen
-	m_cStateHandler->ChangeState(new StateSplash("Splash State", theView));
+	// Setting the first state to render to be the Splash Screen #TODO
+	m_cStateHandler->ChangeState(new StateTest("Test State", theView));
 
 	while(LoopTheGame)
 	{
@@ -76,19 +78,12 @@ void Controller::RunGameLoop()
 		// TESTING
 		ImGui::ShowDemoWindow();
 
-		if (ImGui::Begin("Information", 0, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoBackground))
-		{
-			ImGui::SetWindowPos(ImVec2(-5, theView->getWindowHeight() - (ImGui::GetWindowHeight() * 0.75f)), true);
-			ImGui::Text("FPS : %f", ImGui::GetIO().Framerate);
-			ImGui::End();
-		}
-		else
-		{
-			ImGui::End();
-		}
-
 		// Rendering
 		m_cStateHandler->Draw();
+
+
+		theView->RenderDebugInformation();
+		theView->RenderFPS();
 		theView->RenderImGui();
 		theView->SwapBuffers();
 

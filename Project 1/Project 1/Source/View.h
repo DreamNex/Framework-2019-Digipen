@@ -15,6 +15,7 @@
 #include <string>
 
 #include "Model.h"
+#include "Math\MatrixStack.h"
 #include "InputHandler.h"
 
 #include "imgui/imgui.h"
@@ -26,6 +27,8 @@
 
 // Include all GLM extensions
 #include <glm/ext.hpp> // perspective, translate, rotate
+
+class Camera;
 
 #define LIGHTS_ENABLED true
 
@@ -92,6 +95,7 @@ public:
 
 	BOOL CreateGLWindow(const char * title, int width, int height, int bits);
 	BOOL InitGL();
+	BOOL InitProgramInfo();
 
 	void SwapBuffers();
 
@@ -99,7 +103,10 @@ public:
 
 	// Rendering Functions
 	void RenderImGui();
+	void RenderDebugInformation();
 	void RenderFPS();
+	void RenderAxis();
+	void RenderMesh(Mesh* mesh, bool enableLight);
 
 	// Generic Functions
 	int getWindowWidth();
@@ -110,8 +117,20 @@ public:
 	void OnResizeWindow();
 	void LoadOrthoCamera();
 	void LoadPerspectiveCamera(double fov);
+	VIEW_STATE GetViewState() { return m_eViewState; }
+
+	// Testing
+	Mesh* m_mAxes;
+	MS projectionStack;
+	MS viewStack;
+	MS modelStack;
+	glm::mat4 ProjectionM4;
+	glm::mat4 ViewM4;
+	glm::mat4 ModelM4;
 
 protected:
+	GLint LoadShaders(const char* vertex_file_path, const char* fragment_file_path);
+
 	int m_iWindow_Width;
 	int m_iWindow_Height;
 	std::string m_sWindow_Title;
@@ -119,6 +138,7 @@ protected:
 	unsigned m_vertexArrayID;
 	unsigned m_programID;
 	unsigned m_parameters[U_TOTAL];
+
 private:
 	GLFWwindow * m_window;
 	GLint m_viewPort[4];
@@ -126,6 +146,8 @@ private:
 	Model * theModel;
 
 	VIEW_STATE m_eViewState;
+
+	Camera * m_cCamera;
 };
 
 
