@@ -7,11 +7,12 @@
 #include <string>
 
 class View;
+class Model;
 
 class State
 {
 public:
-	State(std::string name, View * theView) : m_sName(name), theView(theView)
+	State(std::string name, View* theView, Model* theModel) : m_sName(name), theView(theView), theModel(theModel)
 	{
 
 	}
@@ -39,6 +40,7 @@ public:
 private:
 	std::string m_sName;
 	View * theView;
+	Model * theModel;
 };
 
 #endif

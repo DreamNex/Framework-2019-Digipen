@@ -71,6 +71,12 @@
     <Filter Include="Maths">
       <UniqueIdentifier>{028fcc56-4b77-4b41-884e-885555ce19f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Application\Entity">
+      <UniqueIdentifier>{4ce6ce04-c434-41c8-af8d-68f5f422d21b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application\Entity">
+      <UniqueIdentifier>{d330b5de-7493-406e-b151-cd2362420e58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\libs\gl3w\GL\gl3w.c">
@@ -135,6 +141,9 @@
     </ClCompile>
     <ClCompile Include="Source\Math\Vector3.cpp">
       <Filter>Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity.cpp">
+      <Filter>Source Files\Application\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="Source\Math\Vector3.h">
       <Filter>Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity.h">
+      <Filter>Headers\Application\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

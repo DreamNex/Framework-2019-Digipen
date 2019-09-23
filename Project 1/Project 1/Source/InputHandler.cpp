@@ -281,3 +281,9 @@ void InputHandler::resetMousePosition(View * theView)
 {
 	glfwSetCursorPos(theView->getWindow(), theView->getWindowWidth() * 0.5, theView->getWindowHeight() * 0.5);
 }
+
+void InputHandler::resetMouseDelta()
+{
+	dX = 0.0;
+	dY = 0.0;
+}

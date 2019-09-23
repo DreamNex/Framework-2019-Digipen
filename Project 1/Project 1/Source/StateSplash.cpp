@@ -14,7 +14,7 @@ State * StateSplash::getInstance()
 void StateSplash::Init()
 {
 	// Splash Screen is 2D
-	//theView->LoadOrthoCamera();
+	theView->LoadOrthoCamera();
 
 	m_bStartFadeOut = false;
 	m_dFadeDelay = 0.0;

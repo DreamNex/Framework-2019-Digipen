@@ -7,9 +7,10 @@
 class StateSplash : public State
 {
 public:
-	StateSplash(std::string name, View * theView) : State(name, theView)
+	StateSplash(std::string name, View * theView, Model * theModel) : State(name, theView, theModel)
 	{
 		this->theView = theView;
+		this->theModel = theModel;
 	}
 
 	~StateSplash();
@@ -32,7 +33,7 @@ public:
 
 private:
 	View * theView;
-	//std::vector<Mesh*> m_meshList;
+	Model * theModel;
 
 	// Fade Effect
 	double m_dFadeDelay;

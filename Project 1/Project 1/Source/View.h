@@ -17,6 +17,7 @@
 #include "Model.h"
 #include "Math\MatrixStack.h"
 #include "InputHandler.h"
+#include "Entity.h"
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -109,12 +110,15 @@ public:
 	void RenderDebugInformation();
 	void RenderFPS();
 	void RenderAxis();
-	void RenderMesh(Mesh* mesh, bool enableLight);
+	
+	void RenderMesh(Mesh* mesh, bool enableLight = false); // Default
+	void RenderEntity(Entity* entity, bool enableLight = false);
 
 	// Generic Functions
 	int getWindowWidth();
 	int getWindowHeight();
 	GLFWwindow * getWindow();
+	void SetImguiMouseEnabled(bool enableMouse = true) { m_bImguiMouseEnabled = enableMouse; }
 
 	// Camera Functions
 	void OnResizeWindow();
@@ -142,6 +146,7 @@ protected:
 	unsigned m_programID;
 	unsigned m_parameters[U_TOTAL];
 
+	bool m_bImguiMouseEnabled;
 private:
 	GLFWwindow * m_window;
 	GLint m_viewPort[4];

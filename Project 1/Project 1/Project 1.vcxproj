@@ -123,6 +123,7 @@
     <ClCompile Include="..\libs\gl3w\GL\gl3w.c" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Controller.cpp" />
+    <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\imgui\imgui.cpp" />
     <ClCompile Include="Source\imgui\imgui_demo.cpp" />
     <ClCompile Include="Source\imgui\imgui_draw.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="..\libs\glfw\include\glfw3native.h" />
     <ClInclude Include="Source\Camera.h" />
     <ClInclude Include="Source\Controller.h" />
+    <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\imgui\imconfig.h" />
     <ClInclude Include="Source\imgui\imgui.h" />
     <ClInclude Include="Source\imgui\imgui_impl_glfw.h" />

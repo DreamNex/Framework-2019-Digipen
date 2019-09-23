@@ -4,6 +4,7 @@
 #include <iostream>
 
 #define MOUSE_SENSITIVITY 1.f
+#define CAMERA_SENSITIVITY 0.5f
 
 Camera::Camera(View* view)
 	: m_cView(view)
@@ -11,13 +12,13 @@ Camera::Camera(View* view)
 	, m_m4Model(glm::mat4(1.0f))
 	, m_m4View(glm::mat4(1.0f))
 	, m_m4Projection(glm::mat4(1.0f))
-	, m_v3CameraPos(glm::vec3(0.f, 1.f, 0.f))
+	, m_v3CameraPos(glm::vec3(0.f, 20.f, 0.f))
 	, m_v3CameraTarget(glm::vec3(0.f,0.f,0.f))
 	, m_v3CameraUp(glm::vec3(0.f, 1.f, 0.f))
 	, m_v3CameraRight(glm::vec3(0.f,0.f,0.f))
 	, m_v3CameraDirection(glm::vec3(0.f,0.f, 1.f))
-	, m_fPitch(0.f)
-	, m_fYaw(-90.f)
+	, m_fPitch(-35.f)
+	, m_fYaw(225.f)
 	, m_fRoll(0.f)
 {
 	std::cout << "Camera Created" << std::endl;
@@ -57,17 +58,17 @@ void Camera::Move()
 		switch (m_cView->GetViewState())
 		{
 		case VIEW_STATE::VIEW_ORTHO:
-			m_v3CameraPos.y += 1.f;
+			m_v3CameraPos.y += CAMERA_SENSITIVITY;
 			break;
 		case VIEW_STATE::VIEW_PERSPECTIVE:
 			switch (m_eCameraMode)
 			{
 			case CM_FREE_CAMERA:
-				m_v3CameraPos += m_v3CameraDirection * 1.f;
+				m_v3CameraPos += m_v3CameraDirection * CAMERA_SENSITIVITY;
 				break;
 			case CM_FIRST_PERSON:
-				m_v3CameraPos.x += m_v3CameraDirection.x * 1.f;
-				m_v3CameraPos.z += m_v3CameraDirection.z * 1.f;
+				m_v3CameraPos.x += m_v3CameraDirection.x * CAMERA_SENSITIVITY;
+				m_v3CameraPos.z += m_v3CameraDirection.z * CAMERA_SENSITIVITY;
 				break;
 			}
 			break;
@@ -84,11 +85,11 @@ void Camera::Move()
 			switch (m_eCameraMode)
 			{
 			case CM_FREE_CAMERA:
-				m_v3CameraPos -= m_v3CameraDirection * 1.f;
+				m_v3CameraPos -= m_v3CameraDirection * CAMERA_SENSITIVITY;
 				break;
 			case CM_FIRST_PERSON:
-				m_v3CameraPos.x -= m_v3CameraDirection.x * 1.f;
-				m_v3CameraPos.z -= m_v3CameraDirection.z * 1.f;
+				m_v3CameraPos.x -= m_v3CameraDirection.x * CAMERA_SENSITIVITY;
+				m_v3CameraPos.z -= m_v3CameraDirection.z * CAMERA_SENSITIVITY;
 				break;
 			}
 			break;
@@ -96,11 +97,11 @@ void Camera::Move()
 	}
 	if (InputHandler::IsKeyPressed(GLFW_KEY_A)) // Left
 	{
-		m_v3CameraPos -= glm::normalize(glm::cross(m_v3CameraDirection, m_v3CameraUp) * 1.f);
+		m_v3CameraPos -= glm::normalize(glm::cross(m_v3CameraDirection, m_v3CameraUp) * CAMERA_SENSITIVITY);
 	}
 	if (InputHandler::IsKeyPressed(GLFW_KEY_D)) // Right
 	{
-		m_v3CameraPos += glm::normalize(glm::cross(m_v3CameraDirection, m_v3CameraUp) * 1.f);
+		m_v3CameraPos += glm::normalize(glm::cross(m_v3CameraDirection, m_v3CameraUp) * CAMERA_SENSITIVITY);
 	}
 	if (InputHandler::IsKeyPressed(GLFW_KEY_Q)) // Rotate Left
 	{
@@ -112,7 +113,7 @@ void Camera::Move()
 	}
 	if (InputHandler::IsKeyPressed(GLFW_KEY_SPACE)) // Rotate Right
 	{
-		m_v3CameraPos.y += 1.f;
+		m_v3CameraPos.y += CAMERA_SENSITIVITY;
 	}
 
 	switch (m_cView->GetViewState())

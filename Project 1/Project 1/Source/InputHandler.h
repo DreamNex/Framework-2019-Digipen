@@ -4,7 +4,7 @@
 #pragma warning(disable:4018)
 #pragma warning(disable:4227)
 
-#define PRESS_DELAY 0.25
+#define PRESS_DELAY 2.0
 
 #include <iostream>
 
@@ -60,6 +60,7 @@ public:
 	static void setMouseEnabled(bool status);
 
 	static void resetMousePosition(View * theView);
+	static void resetMouseDelta();
 
 	// Generic Functions
 	static void MouseUpdate(View * theView, double dt);

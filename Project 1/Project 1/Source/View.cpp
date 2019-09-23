@@ -124,8 +124,9 @@ BOOL View::CreateGLWindow(const char * title, int width, int height, int bits)
 	glfwSetCursorPos(this->getWindow(), this->getWindowWidth() / 2, this->getWindowHeight() / 2);
 
 	m_cCamera = new Camera(this);
-	//m_mAxes = MeshBuilder::GenerateAxis("Axis");
-	m_mAxes = MeshBuilder::GenerateCube("Cube", Mesh::Color(0.1f,0.2f,0.3f), 10.f);
+	m_cCamera->SetCameraPos(glm::vec3(50.f, 50.f, 50.f));
+
+	m_mAxes = MeshBuilder::GenerateAxis("Axis",2000.f,2000.f,2000.f);
 
 	return TRUE;
 }
@@ -157,7 +158,46 @@ void View::Update(double dt)
 
 	}
 
-	this->m_cCamera->Update(dt);
+	if (InputHandler::getInstance().IsKeyPressed(GLFW_KEY_F3))
+	{
+		if (InputHandler::getInstance().IsKeyTriggered(GLFW_KEY_F3))
+		{
+			this->SetImguiMouseEnabled();
+		}
+		else
+		{
+			this->SetImguiMouseEnabled(false);
+			InputHandler::resetMousePosition(this);
+			InputHandler::resetMouseDelta();
+		}
+
+	}
+
+	if (InputHandler::getInstance().IsKeyPressed(GLFW_KEY_N))
+	{
+		glm::vec3 pos = theModel->GetEntityList()["Cube"]->GetPosition();
+		pos.x += 1;
+		theModel->GetEntityList()["Cube"]->SetPosition(pos.x,pos.y,pos.z);
+	}
+	if (InputHandler::getInstance().IsKeyPressed(GLFW_KEY_M))
+	{
+		glm::vec3 pos = theModel->GetEntityList()["Cube"]->GetPosition();
+		pos.x -= 1;
+		theModel->GetEntityList()["Cube"]->SetPosition(pos.x, pos.y, pos.z);
+	}
+
+	glm::vec3 rot = theModel->GetEntityList()["Cube"]->GetRotation();
+	rot.x += 1 *dt;
+	theModel->GetEntityList()["Cube"]->SetRotation(rot.x, rot.y, rot.z);
+
+	if (m_bImguiMouseEnabled)
+	{
+
+	}
+	else
+	{
+		this->m_cCamera->Update(dt);
+	}
 
 	this->OnResizeWindow();
 }
@@ -282,12 +322,48 @@ void View::RenderDebugInformation()
 		ImGui::Text("Camera Up %f, %f, %f", this->m_cCamera->m_v3CameraUp.x, this->m_cCamera->m_v3CameraUp.y, this->m_cCamera->m_v3CameraUp.z);
 		ImGui::Text("Camera Pitch | Yaw | Roll %f, %f, %f", this->m_cCamera->GetPitch(), this->m_cCamera->GetYaw(), this->m_cCamera->GetRoll());
 		ImGui::Text("Mouse Delta %f, %f", InputHandler::getDeltaX(), InputHandler::getDeltaY());
+		ImGui::Text("Cube Pos x:%f, y:%f, z:%f", theModel->GetEntityList()["Cube"]->GetPosition().x, theModel->GetEntityList()["Cube"]->GetPosition().y, theModel->GetEntityList()["Cube"]->GetPosition().z);
 		ImGui::End();
 	}
 	else
 	{
 		ImGui::End();
 	}
+
+	// Rendering EntityList
+	const float DISTANCE = 1.f;
+	ImVec2 window_pos = ImVec2(m_iWindow_Width - DISTANCE, DISTANCE);
+	ImVec2 window_pos_pivot = ImVec2(1.0f, 0.0f);
+	ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
+	ImGui::SetNextWindowBgAlpha(0.35f); // Transparent background
+	if (ImGui::Begin("Entity List", 0, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav))
+	{
+		if (ImGui::TreeNodeEx("Entity List",ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			if (theModel->GetEntityList().size() > 0)
+			{
+				for (auto entity : theModel->GetEntityList())
+				{
+					ImGuiTreeNodeFlags node_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
+					bool node_open = ImGui::TreeNodeEx(entity.second, node_flags, "Entity %s", entity.second->toString().c_str());
+					if (node_open)
+					{
+						ImGui::Text("Cube Position x:%f, y:%f, z:%f", entity.second->GetPosition().x, entity.second->GetPosition().y, entity.second->GetPosition().z);
+						ImGui::Text("Cube Rotation x:%f, y:%f, z:%f", entity.second->GetRotation().x, entity.second->GetRotation().y, entity.second->GetRotation().z);
+						ImGui::Text("Cube Scale x:%f, y:%f, z:%f", entity.second->GetScale().x, entity.second->GetScale().y, entity.second->GetScale().z);
+						ImGui::TreePop();
+					}
+				}
+			}
+			else
+			{
+				ImGui::Text("0 Entities");
+			}
+			ImGui::TreePop();
+		}
+	}
+	ImGui::End();
+
 }
 
 void View::RenderFPS()
@@ -312,29 +388,28 @@ void View::RenderAxis()
 
 void View::RenderMesh(Mesh* mesh, bool enableLight)
 {
-	if (mesh == NULL)
+	if (mesh == nullptr)
 		return;
 
-
-	Mtx44 MVP, modelView, modelView_inverse_transpose;
-
-	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+	//m_cCamera->m_m4Model = glm::rotate(m_cCamera->m_m4Model,5.f, glm::vec3(1.f, 0.f, 0.f));
+	// Object Model is based on its own transformations
 	
 	glm::mat4 MVP2 = m_cCamera->m_m4Projection * m_cCamera->m_m4View * m_cCamera->m_m4Model;
-	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP2[0][0]);
-	//glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 
-	modelView = viewStack.Top() * modelStack.Top();
-	glUniformMatrix4fv(m_parameters[U_MODELVIEW], 1, GL_FALSE, &modelView.a[0]);
+	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP2[0][0]);
+
+	glm::mat4 modelView = m_cCamera->m_m4View * m_cCamera->m_m4Model;
+	glUniformMatrix4fv(m_parameters[U_MODELVIEW], 1, GL_FALSE, &modelView[0][0]);
 
 	// Alpha
 	glUniform1f(m_parameters[U_OBJECT_ALPHA], mesh->alpha);
 
 	if (enableLight && LIGHTS_ENABLED)
 	{
+		glm::mat4 modelView_inverse_transpose = glm::mat4(1.f);
+		modelView_inverse_transpose = glm::transpose(glm::inverse(modelView));
 		glUniform1i(m_parameters[U_LIGHTENABLED], 1);
-		modelView_inverse_transpose = modelView.GetInverse().GetTranspose();
-		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView_inverse_transpose.a[0]);
+		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView_inverse_transpose[0][0]);
 		//load material
 		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &mesh->material.kAmbient.r);
 		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &mesh->material.kDiffuse.r);
@@ -369,6 +444,73 @@ void View::RenderMesh(Mesh* mesh, bool enableLight)
 	}
 
 	mesh->Render();
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void View::RenderEntity(Entity* entity, bool enableLight)
+{
+	if (entity == nullptr)	
+		return;
+
+	glm::mat4 modelMatrix = glm::mat4(1.f);
+	modelMatrix = glm::scale(modelMatrix, entity->GetScale());
+	modelMatrix = glm::rotate(modelMatrix, entity->GetRotation().z, glm::vec3(0.f, 0.f, 1.f));
+	modelMatrix = glm::rotate(modelMatrix, entity->GetRotation().x, glm::vec3(1.f, 0.f, 0.f));
+	modelMatrix = glm::rotate(modelMatrix, entity->GetRotation().y, glm::vec3(0.f, 1.f, 0.f));
+	modelMatrix = glm::translate(modelMatrix, entity->GetPosition());
+
+	glm::mat4 MVP2 = m_cCamera->m_m4Projection * m_cCamera->m_m4View * (/*m_cCamera->m_m4Model + */modelMatrix);
+
+	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP2[0][0]);
+
+	glm::mat4 modelView = m_cCamera->m_m4View * (/*m_cCamera->m_m4Model*/ + modelMatrix);
+	glUniformMatrix4fv(m_parameters[U_MODELVIEW], 1, GL_FALSE, &modelView[0][0]);
+
+	// Alpha
+	glUniform1f(m_parameters[U_OBJECT_ALPHA], entity->GetMesh()->alpha);
+
+
+	if (enableLight && LIGHTS_ENABLED)
+	{
+		glm::mat4 modelView_inverse_transpose = glm::mat4(1.f);
+		modelView_inverse_transpose = glm::transpose(glm::inverse(modelView));
+		glUniform1i(m_parameters[U_LIGHTENABLED], 1);
+		glUniformMatrix4fv(m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView_inverse_transpose[0][0]);
+		//load material
+		glUniform3fv(m_parameters[U_MATERIAL_AMBIENT], 1, &entity->GetMesh()->material.kAmbient.r);
+		glUniform3fv(m_parameters[U_MATERIAL_DIFFUSE], 1, &entity->GetMesh()->material.kDiffuse.r);
+		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &entity->GetMesh()->material.kSpecular.r);
+		glUniform1f(m_parameters[U_MATERIAL_SHININESS], entity->GetMesh()->material.kShininess);
+	}
+	else
+	{
+		glUniform1i(m_parameters[U_LIGHTENABLED], 0);
+	}
+
+	for (int i = 0; i < MAX_TEXTURES; i++)
+	{
+		if (entity->GetMesh()->textureArray[i] > 0)
+		{
+			glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED + i], 1);
+		}
+		else
+		{
+			glUniform1i(m_parameters[U_COLOR_TEXTURE_ENABLED + i], 0);
+		}
+
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, entity->GetMesh()->textureArray[i]);
+		//
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		//
+		glUniform1i(m_parameters[U_COLOR_TEXTURE + i], i);
+	}
+
+	entity->GetMesh()->Render();
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
